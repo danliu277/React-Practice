@@ -1,34 +1,42 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import LoginContainer from './LoginContainer';
+import AlertComponent from '../Alert/AlertComponent';
 
 var data = require('../settings.json');
-
-async function login(username, password) {
-	let json = JSON.stringify({
-		username: username,
-		password: password
-	});
-
-	fetch(data.url + '/user/', {
-		method: 'POST',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json',
-		},
-		body: json
-	}).then(res => {
-		return res.json();
-	}).then(res =>{
-		console.log(res);
-	}).catch(err => {
-		console.log("Error ", err);
-		return err
-	});
-}
 
 function LoginComponent() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [show, setShow] = useState(false);
+	const [message, setMessage] = useState('');
+
+	async function login(username, password) {
+		let json = JSON.stringify({
+			username: username,
+			password: password
+		});
+
+		fetch(data.url + '/user/', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: json
+		}).then(res => {
+			if (res.ok) {
+				console.log("Here res: ", res)
+				return res.json();
+			}
+		}).then(res => {
+			console.log("rese: ", res);
+		}).catch(err => {
+			console.log("Error ", err);
+			setShow(true);
+			setMessage('Error logging in');
+			return err
+		});
+	}
 
 	const handleUsernameChange = (event) => {
 		if (event && event.target) {
@@ -37,23 +45,34 @@ function LoginComponent() {
 	}
 
 	const handlePasswordChange = (event) => {
-		if(event && event.target) {
+		if (event && event.target) {
 			setPassword(event.target.value);
 		}
 	}
 
 	const handleLogin = async () => {
-		await console.log(login(username, password));
+		await login(username, password);
+	}
+
+	const handleClose = () => {
+		setShow(false);
 	}
 
 	return (
-		<LoginContainer 
-			username = {username}
-			password = {password}
-			handleUsernameChange = {handleUsernameChange}
-			handlePasswordChange = {handlePasswordChange}
-			handleLogin = {handleLogin}
-		/>
+		<React.Fragment>
+			<AlertComponent 
+				show={show}
+				message={message}
+				handleClose={handleClose}
+			/>
+			<LoginContainer
+				username={username}
+				password={password}
+				handleUsernameChange={handleUsernameChange}
+				handlePasswordChange={handlePasswordChange}
+				handleLogin={handleLogin}
+			/>
+		</React.Fragment>
 	);
 }
 
