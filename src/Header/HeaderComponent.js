@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import HeaderComtainer from "./HeaderContainer";
+import React from "react"
+import HeaderContainer from "./HeaderContainer";
 
 function HeaderComponent () {
 	return (
-		<HeaderComtainer />
+		<HeaderContainer />
 	);
 }
 

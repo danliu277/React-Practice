@@ -10,52 +10,17 @@
  * 3. In the TodoItem component, make it so when the `onChange` event happens, it calls the `handleChange` method and passes the id of the todo into the function
  */
 
-import React, { createContext, useState } from "react"
-import { Route, BrowserRouter as Router } from 'react-router-dom'
-
-import LoginComponent from "./Login/LoginComponent"
-import CreateUserComponent from "./CreateUser/CreateUserComponent"
-import HomeContainer from "./Home/HomeContainer"
+import React from "react"
 import HeaderComponent from "./Header/HeaderComponent"
+import Container from "./Container"
 
-const routing = (
-    <Router>
-        <div>
-            <Route path="/login" component={LoginComponent} />
-            <Route path="/create" component={CreateUserComponent} />
-            <Route path="/" exact component={HomeContainer} />
-        </div>
-    </Router>
-)
-
-const UserContext = createContext();
-
-class App extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            user: null
-        }
-    }
-
-    setUser(user) {
-        this.setState({
-            user: user
-        })
-    }
-
-    render() {
-        return (
-            <React.Fragment>
-                <UserContext.Provider>
-                    <HeaderComponent />
-                    <meta name="csrf-token" content="{{csrfToken}}"></meta>
-                    {routing}
-                </UserContext.Provider>
-            </React.Fragment>
-        )
-    }
+function App(props) {
+    return (
+        <Container>
+            <HeaderComponent />
+            <meta name="csrf-token" content="{{csrfToken}}"></meta>
+        </Container>
+    )
 }
 
 export default App
-export const UserContextConsumer = UserContext.Consumer;

@@ -4,7 +4,7 @@ import AlertComponent from '../Alert/AlertComponent';
 
 var data = require('../settings.json');
 
-function LoginComponent() {
+function LoginComponent(props) {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [show, setShow] = useState(false);
