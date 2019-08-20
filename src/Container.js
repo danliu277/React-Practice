@@ -10,7 +10,7 @@ import history from "./history";
 export const UserContext = createContext();
 
 function Container(props) {
-	const [user, setUser] = useState({id:1, username:'a', password:'a'});
+	const [user, setUser] = useState(null);
 
 	const routing = (
 		<Router history={history}>
