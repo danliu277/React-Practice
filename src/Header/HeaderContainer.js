@@ -1,7 +1,22 @@
 import React from "react"
 import Octicon, { Person } from '@githubprimer/octicons-react'
 
-function HeaderContainer() {
+function HeaderContainer(props) {
+	const {handleLogIn, handleLogOut, loggedIn} = props;
+
+	const logInOrOut = () => {
+		if(!loggedIn) {
+			return (
+				<button className="dropdown-item" onClick={handleLogIn}>Log In</button>
+			)
+		}
+		else {
+			return (
+				<button className="dropdown-item" onClick={handleLogOut}>Log Out</button>
+			)
+		}
+	}
+
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a className="navbar-brand" href="/">Navbar</a>
@@ -30,7 +45,7 @@ function HeaderContainer() {
 					</a>
 					<div className="dropdown-menu dropdown-menu-right dropdown-default"
 						aria-labelledby="navbarDropdownMenuLink-333">
-						<a className="dropdown-item" href="login">Login</a>
+						{logInOrOut()}
 						<a className="dropdown-item" href="#">Another action</a>
 						<a className="dropdown-item" href="#">Something else here</a>
 					</div>

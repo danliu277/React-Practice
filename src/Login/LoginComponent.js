@@ -10,6 +10,8 @@ function LoginComponent(props) {
 	const [show, setShow] = useState(false);
 	const [message, setMessage] = useState('');
 
+	const {user, setUser} = props
+
 	async function login(username, password) {
 		let json = JSON.stringify({
 			username: username,
@@ -25,11 +27,10 @@ function LoginComponent(props) {
 			body: json
 		}).then(res => {
 			if (res.ok) {
-				console.log("Here res: ", res)
 				return res.json();
 			}
 		}).then(res => {
-			console.log("rese: ", res);
+			setUser(res);
 		}).catch(err => {
 			console.log("Error ", err);
 			setShow(true);

@@ -11,13 +11,11 @@
  */
 
 import React from "react"
-import HeaderComponent from "./Header/HeaderComponent"
 import Container from "./Container"
 
 function App(props) {
     return (
         <Container>
-            <HeaderComponent />
             <meta name="csrf-token" content="{{csrfToken}}"></meta>
         </Container>
     )
